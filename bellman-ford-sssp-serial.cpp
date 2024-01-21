@@ -293,7 +293,7 @@ int main()
 	auto t2 = chrono::high_resolution_clock::now();
 
 	auto duration_1 = chrono::duration_cast<chrono::microseconds>(t2 - t1).count();
-	cout << "Execution time (microseconds): " << duration_1 << endl;
+	cout << "Bellman Ford Serial Execution time (microseconds): " << duration_1 << endl;
 
 	return 0;
 }
