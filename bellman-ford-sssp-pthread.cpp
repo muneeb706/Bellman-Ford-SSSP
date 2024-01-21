@@ -9,7 +9,7 @@ using namespace std;
 
 struct Graph *graph;
 // distance of node 10 will be at index 10.
-vector<int> node_distances;
+vector<long> node_distances;
 int num_threads;
 int bsize;
 int no_of_nodes;
@@ -64,7 +64,7 @@ void runBellmanFordSSSP(int source_node_id)
 	no_of_edges = graph->no_of_edges;
 
 	// distance of node 10 will be at index 10.
-	node_distances = vector<int>(no_of_nodes);
+	node_distances = vector<long>(no_of_nodes);
 
 	threads = new pthread_t[num_threads];
 

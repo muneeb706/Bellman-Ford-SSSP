@@ -1,4 +1,4 @@
-#include "graph.h" 	   // For graph data structure
+#include "graph.h"				// For graph data structure
 #include "dataset_operations.h" // For dataset operations
 
 using namespace std;
@@ -24,7 +24,7 @@ void runBellmanFordSSSP(struct Graph *graph, int source_node_id)
 	int no_of_edges = graph->no_of_edges;
 
 	// distance of node 10 will be at index 10.
-	int node_distances[no_of_nodes];
+	long node_distances[no_of_nodes];
 
 	// setting initial distances to infinity
 	for (int i = 0; i < no_of_nodes; i++)
@@ -43,7 +43,8 @@ void runBellmanFordSSSP(struct Graph *graph, int source_node_id)
 			int node_2 = graph->edge[j].destination;
 			int weight = graph->edge[j].weight;
 
-			if (node_distances[node_1] + weight < node_distances[node_2])
+			if (node_distances[node_1] != numeric_limits<int>::max() &&
+				node_distances[node_1] + weight < node_distances[node_2])
 			{
 				node_distances[node_2] = node_distances[node_1] + weight;
 				relaxed = true;
@@ -65,7 +66,8 @@ void runBellmanFordSSSP(struct Graph *graph, int source_node_id)
 		int node_2 = graph->edge[i].destination;
 		int weight = graph->edge[i].weight;
 
-		if (node_distances[node_1] + weight < node_distances[node_2])
+		if (node_distances[node_1] != numeric_limits<int>::max() &&
+			node_distances[node_1] + weight < node_distances[node_2])
 			cout << "Negative weight edge cycle is present in the graph\n";
 	}
 
