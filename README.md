@@ -1,31 +1,49 @@
 # Bellman-Ford-SSSP
-In this project, serial, parallel and SIMD (Single Instruction Multiple Data) vectorized version of bellman ford algorithm for single source shortest path is implemented.
+This repository contains implementations of the Bellman-Ford algorithm for Single Source Shortest Path (SSSP) problem in three different ways:
+
+1. Serial implementation (`bellman-ford-sssp-serial.cpp`)
+2. Parallel implementation using pthreads (`bellman-ford-sssp-pthread.cpp`)
+3. Parallel implementation using SIMD and Tiling (`bellman-ford-sssp-simd.cpp`)
 
 ## Dataset
-Experiment is done on the higgs-twitter.mtx data file, this file can be downloaded from [higgs-twitter-dataset](https://suitesparse-collection-website.herokuapp.com/MM/SNAP/higgs-twitter.tar.gz). After downloading the compressed folder search for higgs-twitter.mtx data file and put the file in the same folder where code files are placed.
+The program automatically downloads and uses the `higgs-twitter.mtx` data file for its operations. This dataset is part of the [Higgs Twitter dataset](https://suitesparse-collection-website.herokuapp.com/MM/SNAP/higgs-twitter.tar.gz), which captures the spread of news about the discovery of a new particle with the features of the Higgs boson on 4th July 2012.
 
 ## Compilation and Execution
-Code can be compiled and executed using g++ compiler for parallel and serial iplmentation but for SIMD vectorized version intel module is needed. Please enter following commands in the terminal after navigating to folder where code files are placed to compile.
+The code can be compiled and executed using the `g++` compiler for the serial and parallel implementations. However, for the SIMD vectorized version, the `ARM architecture` is needed. 
+
+Please follow the instructions below to compile and execute the programs:
 
 ### For Serial Program
 
 #### Compile
-g++ -o bellman-ford-sssp-serial bellman-ford-sssp-serial.cpp -std=c++11
+```bash
+g++ bellman-ford-sssp-serial.cpp graph.cpp dataset_operations.cpp -o bellman-ford-sssp-serial -std=c++20 -lcurl
+```
 #### Execute
-./bellman-ford-sssp-serial
+```bash
+./bellman-ford-sssp-serial 
+```
 
 ### For Parallel Program
 
 #### Compile
-g++ -o bellman-ford-sssp-pthread bellman-ford-sssp-pthread.cpp -std=c++11 -lpthread
+```bash
+g++ bellman-ford-sssp-pthread.cpp graph.cpp dataset_operations.cpp -o bellman-ford-sssp-pthread -std=c++20 -lpthread -lcurl
+```
 #### Execute
+```bash
 ./bellman-ford-sssp-pthread
-
+```
 
 ### For SIMD Vectorization Program
 
+The SIMD vectorized version of the program is designed to run on ARM architecture, specifically using ARM NEON intrinsics for SIMD vectorization. 
+
 #### Compile
-module load intel
-icc -std=c++11 bellmanFordSsspSIMD.cpp
+```bash
+g++ bellman-ford-sssp-simd.cpp dataset_operations.cpp -o bellman-ford-sssp-simd -march=armv8-a -mfpu=neon -std=c++20 -lcurl
+```
 #### Execute
-./a.out
+```bash
+./bellman-ford-sssp-simd
+```
